@@ -180,9 +180,9 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            BACKEND_IP=$(aws ec2 describe-instances \
-              --stack-name backend-${CIRCLE_WORKFLOW_ID:0:7} \
-              --query Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue \
+            BACKEND_IP=$(aws cloudformation describe-stacks \
+              --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}"" \
+              --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" \
               --output text)
             echo $BACKEND_IP >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
