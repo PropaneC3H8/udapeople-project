@@ -43,6 +43,8 @@
         port: 22
         delay: 10
 
+    - setup:
+
   roles:
     # Your code here
     - configure-server
