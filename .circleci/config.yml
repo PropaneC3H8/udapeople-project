@@ -153,7 +153,7 @@ jobs:
   deploy-infrastructure:
     docker:
       # Docker image here that supports AWS CLI
-      - image: amazon/aws-cli
+      - image: cimg/aws:2022.6.1
     steps:
       # Checkout code from git
       - checkout
@@ -180,13 +180,10 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            PUBLIC_DNS=$(aws ec2 describe-instances \
-                                    --filters Name=tag:Name,Values="backend-${CIRCLE_WORKFLOW_ID}" Name=instance-state-name,Values=running \
-                                    --query 'Reservations[*].Instances[*].InstanceIP' \
-                                    --output text)
-            echo ${PUBLIC_DNS} >>  .circleci/ansible/inventory.txt
-            echo
-            echo "Public DNS name: " ${PUBLIC_DNS}
+            aws cloudformation describe-stacks \
+            --stack-name "backend-6cba36e" \
+            --query "Stacks[0].Outputs[0].OutputValue" \
+            --output text >> .circleci/ansible/inventory.txt
       - run:
           name: Install tar utility
           command: |
