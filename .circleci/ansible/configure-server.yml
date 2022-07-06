@@ -29,7 +29,7 @@
       # Your code here
       wait_for_connection:
         delay: 10
-        timeout: 300
+        timeout: 600
 
     - name: "install python for Ansible."
       # Your code here
