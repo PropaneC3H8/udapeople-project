@@ -164,7 +164,7 @@ jobs:
               --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --template-body file://.circleci/files/backend.yml \
               --parameters ParameterKey=ID,ParameterValue="${CIRCLE_WORKFLOW_ID:0:7}"  \
-              --tags Key="project",Value="udapeople-backend" \
+              --tags Key="project",Value="udapeople" \
               --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" \
               --region=us-east-1
       - run:

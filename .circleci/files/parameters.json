@@ -2,9 +2,5 @@
     {
 		"ParameterKey": "WorkflowID",
 		"ParameterValue": "udapeople-641103911929"
-	},
-	{
-		"ParameterKey": "ID",
-		"ParameterValue": "CIRCLE_WORKFLOW_ID:0:7"
 	}
 ]
