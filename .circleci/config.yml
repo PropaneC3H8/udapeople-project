@@ -183,8 +183,8 @@ jobs:
             aws cloudformation describe-stacks \
             --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --query "Stacks[0].Outputs[0].OutputValue" \
-            --output text >> /root/project/.circleci/ansible/inventory.txt
-            cat /root/project/.circleci/ansible/inventory.txt
+            --output text >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
       - run:
           name: Install tar utility
           command: |
