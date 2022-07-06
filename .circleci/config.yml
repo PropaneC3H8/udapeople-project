@@ -160,6 +160,7 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
+            docker run --rm -it amazon/aws-cli --version
             aws cloudformation create-stack \
               --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --template-body file://.circleci/files/backend.yml \
@@ -182,7 +183,7 @@ jobs:
           command: |
             BACKEND_IP=$(aws cloudformation describe-stacks \
               --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --query "Stacks[0].Outputs[?OutputKey=='InstanceIP'].OutputValue" \
+              --query "Stacks[0].Outputs[0].OutputValue" \
               --output text)
             echo $BACKEND_IP >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
