@@ -173,27 +173,24 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-            aws cloudformation create-stack \
+            aws cloudformation deploy\
               --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --template-body file://.circleci/files/backend.yml \
-              --parameters ParameterKey=ID,ParameterValue="${CIRCLE_WORKFLOW_ID:0:7}"  \
-              --tags Key="project",Value="udapeople" \
-              --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" \
-              --region=us-east-1
+              --template-file .circleci/files/backend.yml \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
+              --tags project=udapeople
       - run:
           name: Ensure front-end infrastructure exist
           command: |
-            aws cloudformation create-stack \
+            aws cloudformation deploy \
               --stack-name "frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --template-body file://.circleci/files/frontend.yml \
-              --parameters ParameterKey=ID,ParameterValue="${CIRCLE_WORKFLOW_ID:0:7}"  \
-              --tags Key="project",Value="udapeople" \
-              --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" \
-              --region=us-east-1
+              --template-file .circleci/files/frontend.yml \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
+              --tags project=udapeople
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            aws ec2 describe-instances --filters Name=tag:Name,Values="backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].Instances[*].PublicDnsName' >> .circleci/ansible/inventory.txt
+            aws ec2 describe-instances --filters Name=tag:Name,Values="backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --query 'Reservations[*].Instances[*].PublicDnsName' >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
