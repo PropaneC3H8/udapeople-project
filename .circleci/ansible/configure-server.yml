@@ -23,7 +23,7 @@
       # Your code here
       become: yes
       apt:
-        name: python3-pip
+        name: python3
         update_cache: yes
         state: latest
     - name: 'Wait port 22 to become reachable/usable.'
