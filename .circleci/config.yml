@@ -305,10 +305,6 @@ jobs:
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
-      - persist_to_workspace:
-          root: ~/
-          paths:
-              - frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
@@ -319,6 +315,11 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       # Here's where you will add some code to rollback on failure
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - frontend/.env
+
       - revert-migrations
       - destroy-environment
      
