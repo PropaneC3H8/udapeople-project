@@ -305,6 +305,10 @@ jobs:
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
+      - persist_to_workspace:
+          root: ~/
+          paths:
+              - frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
@@ -381,7 +385,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export API_URL="http://${BACKEND_IP}:3030"
+            export API_URL=$(cat ~/frontend/.env)
             echo "${API_URL}"
             
       - run:
