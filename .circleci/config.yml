@@ -337,6 +337,7 @@ jobs:
           command: |
             # your code here
             apk update
+            apk add --upgrade curl
             apk add --upgrade tar
             apk add --upgrade gzip
             apk add --update ansible
@@ -352,10 +353,9 @@ jobs:
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
-            cd .circleci/ansible
+            cd /project/.circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            cd .circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure
       - revert-migrations
