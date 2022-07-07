@@ -365,6 +365,8 @@ jobs:
     docker:
       # Lightweight Docker image
       - image: python:3.9.1-alpine3.12
+      - attach_workspace:
+          at: ~/
     steps:
       # Checkout code from git
       - run:
@@ -378,7 +380,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export API_URL=$(cat frontend/.env)
+            export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             
       - run:
