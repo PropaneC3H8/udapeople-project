@@ -365,10 +365,11 @@ jobs:
     docker:
       # Lightweight Docker image
       - image: python:3.9.1-alpine3.12
-      - attach_workspace:
-          at: ~/
     steps:
       # Checkout code from git
+      - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
