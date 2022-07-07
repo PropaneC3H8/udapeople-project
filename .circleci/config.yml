@@ -245,12 +245,7 @@ jobs:
       - aws-cli/setup
       - attach_workspace:
           at: ~/
-
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --update tar gzip curl nodejs npm openssh-client git
-
+          
       - run:
           name: Run migrations
           command: |
