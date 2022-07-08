@@ -5,11 +5,9 @@ Parameters:
   WorkflowID:
     Description: Unique identifier.
     Type: String
-    Default: udapeople-641103911929
-
+    Default: "641103911929"
 
 Resources:
-  
   CloudFrontOriginAccessIdentity:
     Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
     Properties:
