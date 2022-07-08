@@ -387,7 +387,7 @@ jobs:
             apk add --update npm
             pip3 install awscli
       - run:
-          name: Get backend url
+          name: Backend smoke test
           command: |
             # your code here
             export BACKEND_IP=$(cat ~/backend_ip.txt)
@@ -399,7 +399,7 @@ jobs:
             else
                 return 1
             fi
-            
+
       - run:
           name: Frontend smoke test.
           command: |
