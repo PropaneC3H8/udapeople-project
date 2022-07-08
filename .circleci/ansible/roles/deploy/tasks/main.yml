@@ -1,4 +1,19 @@
 ---
+- name: check if file exists
+  stat:
+    path: artifact.tar.gz
+  register: file_data
+
+- name: Report if file exists
+  debug:
+    msg: "The file or directory exists"
+  when: file.data.exists
+
+- name: Report if file does not exists
+  debug:
+    msg: "The file or directory does not exists"
+  when: not file.data.exists
+
 - name: Copy artifact.tar.gz to EC2
   copy:
     src: artifact.tar.gz
