@@ -1,5 +1,4 @@
 version: 2.1
-
 orbs: 
   slack: circleci/slack@4.10.1
   aws-cli: circleci/aws-cli@3.1.1
@@ -489,7 +488,7 @@ jobs:
       - run:
           name: Remove old stacks and files
           command: |
-            if [[ "${STACKS[@]}" != "${OldWorkflowID}" ]]
+            if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
             then
               # your code here
               echo "--------------------Delete Confirmed------------------------------"
