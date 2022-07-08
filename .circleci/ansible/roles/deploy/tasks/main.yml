@@ -7,12 +7,12 @@
 - name: Report if file exists
   debug:
     msg: "The file or directory exists"
-  when: file.data.exists
+  when: file_data.exists
 
 - name: Report if file does not exists
   debug:
     msg: "The file or directory does not exists"
-  when: not file.data.exists
+  when: not file_data.exists
 
 - name: Copy artifact.tar.gz to EC2
   copy:
@@ -23,6 +23,7 @@
   shell: |
     cd /home/ubuntu/
     tar -xvf artifact.tar.gz
+    ls
     npm install
     pm2 stop default
     pm2 start npm -- start
